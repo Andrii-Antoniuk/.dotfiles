@@ -100,15 +100,3 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 # pnpm
-alias pbd="pnpm devBuild"
-
-export PNPM_HOME="/home/personal_jesus/.local/share/pnpm"
-case ":$PATH:" in
-*":$PNPM_HOME:"*) ;;
-*) export PATH="$PNPM_HOME:$PATH" ;;
-esac
-# pnpm end
-
-export COMPOSER_AUTH='{"http-basic":{"repo.magento.com":{"username":"b682820b9f54a565fe78af4ef3edc0bc","password":"ed83f8515cb44a34e61a656c1c23f9fc"}}}'
-export N_PREFIX="$HOME/n"
-[[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH+=":$N_PREFIX/bin" # Added by n-install (see http://git.io/n-install-repo).
