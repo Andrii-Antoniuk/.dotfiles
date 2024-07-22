@@ -100,3 +100,8 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 # pnpm
+
+export N_PREFIX="$HOME/n"; [[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH+=":$N_PREFIX/bin"  # Added by n-install (see http://git.io/n-install-repo).
+export ELECTRON_OZONE_PLATFORM_HINT=auto
+alias fs="~/ansible/screen/make-screens-work.sh"
+export PATH=$HOME/bin:$PATH
