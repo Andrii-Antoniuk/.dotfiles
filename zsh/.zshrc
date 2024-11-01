@@ -70,7 +70,9 @@ ZSH_THEME="robbyrussell"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(zsh-autosuggestions git git-auto-fetch node yarn per-directory-history zsh-syntax-highlighting pnpm)
+plugins=(zsh-autosuggestions git git-auto-fetch node yarn per-directory-history zsh-syntax-highlighting pnpm kubectl)
+# completions for kubectx and kubens
+# fpath=($ZSH/custom/completion $fpath)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -101,7 +103,44 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 # pnpm
 
-export N_PREFIX="$HOME/n"; [[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH+=":$N_PREFIX/bin"  # Added by n-install (see http://git.io/n-install-repo).
+export N_PREFIX="$HOME/n"
+[[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH+=":$N_PREFIX/bin" # Added by n-install (see http://git.io/n-install-repo).
 export ELECTRON_OZONE_PLATFORM_HINT=auto
 alias fs="~/ansible/screen/make-screens-work.sh"
-export PATH=$HOME/bin:$PATH
+export PATH=$HOME/bin:/home/linuxbrew/.linuxbrew/bin:$HOME/.local/bin:$PATH
+
+# ngrok
+export NGROK_AUTHTOKEN="op://Private/Ngrok token/notesPlain"
+function ngrok {
+  docker run -it --rm --network=host -e NGROK_AUTHTOKEN=$(op read $NGROK_AUTHTOKEN) ngrok/ngrok "$@"
+}
+
+# Kubernetes
+alias ll='ls -alF'
+alias la='ls -A'
+alias l='ls -CF'
+alias wpods="watch -n 0.5 'kubectl get pods'"
+alias k="kubectl"
+alias ka="kubectl apply -f"
+alias kak="kubectl apply -k"
+alias kd="kubectl delete"
+alias kdf="kubectl delete -f"
+alias kdk="kubectl delete -k"
+alias ke="kubectl exec -it"
+alias kg="kubectl get"
+alias kdes="kubectl describe"
+alias kl="kubectl logs"
+alias kgc="kubectl config get-contexts"
+alias kuc="kubectl config use-context"
+alias kx='kubectx'
+alias kn='kubens'
+
+alias sl='saml2aws login -a scandiweb-kubernetes --force --skip-prompt'
+
+# pnpm
+export PNPM_HOME="/home/personal_jesus/.local/share/pnpm"
+case ":$PATH:" in
+*":$PNPM_HOME:"*) ;;
+*) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+# pnpm end
